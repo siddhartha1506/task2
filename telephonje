@@ -1,0 +1,22 @@
+import pymongo
+myclient=pymongo.MongoClient('mongodb://127.0.0.1:27017')
+db=myclient['telephone']
+collection=db['telephone_directory2']
+collection.insert_many(
+   [
+     { 'name': "ram", 'phone': 9353636363,'place':'chennai','age':25},
+     { 'name': "dave", 'phone': 9783777333,'place':'mumbai','age':28},
+     { 'name': "sam", 'phone': 7837673872,'place':'pune','age':19},
+     { 'name': "rex", 'phone': 9773777333,'place':'kerala','age':32},
+     { 'name': "lex", 'phone': 7888673872,'place':'delhi','age':22}
+   ]
+)
+find1=collection.find_one({'name': 'ram'})
+print(find1)
+data=collection.find()
+for document in data:
+    print(document)
+update=collection.update_one({'name':'ram'}, {'$set':{'name':'Jos'}})
+delete=collection.delete_one({'name':'Jos'})
+find2=collection.find({'age': {'$lt':20}})
+print(find2)
